@@ -67,8 +67,8 @@ dependencies and `pipenv shell` to enter your virtual environment before running
 your code.
 
 ```console
-pipenv install
-pipenv shell
+$ pipenv install
+$ pipenv shell
 ```
 
 Let's use the `tree` command to view the directory structure. MacOS users can
@@ -76,7 +76,7 @@ install this with the command `brew install tree`. WSL and Linux users can run
 `sudo apt-get install tree` to download it.
 
 ```console
-tree
+$ tree
 ```
 
 The `server` folder initially contains two files, `app.py` and `models.py`
@@ -189,8 +189,8 @@ Let's configure the `FLASK_APP` and `FLASK_RUN_PORT` environment variables
 before proceeding with the database migration:
 
 ```console
-export FLASK_APP=app.py
-export FLASK_RUN_PORT=5555
+$ export FLASK_APP=app.py
+$ export FLASK_RUN_PORT=5555
 ```
 
 ### Schema migration with Flask-Migrate
@@ -212,13 +212,13 @@ on models contained in `server/models.py`!
 Change into the `server` directory:
 
 ```console
-cd server
+$ cd server
 ```
 
 Type the following command to create a migration environment:
 
 ```console
-flask db init
+$ flask db init
 ```
 
 The `server` directory should now contain two new directories `instance` and
@@ -262,7 +262,7 @@ optional flag that lets us add a message describing the migration.
 Type the following command to generate an initial migration:
 
 ```console
-flask db migrate -m "Initial migration."
+$ flask db migrate -m "Initial migration."
 ```
 
 . The command results in two new files:
@@ -303,7 +303,7 @@ Finally, type the following to run the `upgrade()` function and create the
 `pets` table:
 
 ```console
-flask db upgrade head
+$ flask db upgrade head
 ```
 
 The `head` is optional and refers to the most recent migration version.
