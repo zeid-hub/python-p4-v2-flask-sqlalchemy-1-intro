@@ -308,13 +308,11 @@ $ flask db upgrade head
 
 The `head` is optional and refers to the most recent migration version.
 
-Open the database file `app.db` using a VS Code extension such as
-`SQLITE EXPLORER` or `SQLite Viewer`.
-
-The image below shows the database schema using the `SQLite Viewer` extension.
-Right-click on `app.db`, then select `Open With.../SQLite Viewer`. Confirm the
-database contains a new table named `pets` with columns as defined by the `Pet`
-model class.
+Open the database file `app.db` using a VSCode extension for viewing SQLite
+database. The image below shows the database using the `SQLite Viewer`
+extension. Assuming you've installed the extension, right-click on `app.db`,
+then select `Open With.../SQLite Viewer`. Confirm the database contains a new
+table named `pets` with columns as defined by the `Pet` model class.
 
 ![new pet table](https://curriculum-content.s3.amazonaws.com/7159/python-p4-v2-flask-sqlalchemy/pet_table.png)
 
@@ -379,3 +377,4 @@ several Flask-Migrate commands to create the initial version of our database:
 - [Alembic](https://alembic.sqlalchemy.org/en/latest/)
 - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/)
 - [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
+- [SQLite Viewer VSCode Extension](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer)
