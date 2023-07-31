@@ -46,10 +46,10 @@ and object-relational mapper (ORM) for the Python programming language.
 **Flask-SQLAlchemy** is a Flask extension that makes it easier to work with
 SQLAlchemy.
 
-A **schema migration** is performed on a database whenever it is necessary to
-update or revert the schema to a newer or older version. **Alembic:** is a
-lightweight database migration tool for usage with SQLAlchemy. **Flask-Migrate**
-is a Flask extension that handles database migrations using Alembic.
+A **schema migration** is performed whenever it is necessary to update or revert
+the database schema to a newer or older version. **Alembic:** is a lightweight
+database migration tool for SQLAlchemy. **Flask-Migrate** is a Flask extension
+that handles database migrations using Alembic.
 
 In this lesson, we will use Flask-SQLAlchemy to configure a database connection
 and to define a model for storing data about pets. We will use Flask-Migrate to
@@ -149,7 +149,7 @@ The file `app.py`:
 
 - Creates a Flask application object named `app`
 - Configures the database connection to a local file `app.db`
-- Creates an object named `migrate` to manage schema migrations
+- Creates an object named `migrate` to manage schema migrations (versions)
 - Initializes the SQLAlchemy extension with the application
 
 ```py
@@ -192,9 +192,9 @@ example, we used the SQL `create table` statement to define a database table,
 and the `update table` statement to modify the structure of an existing table.
 
 A migration is a set of SQL statements that tells a database how to move from an
-old schema to a new one, and also how to move a database entirely from one
-server to the next. We will only be focusing on the former, **schema
-migrations**.
+old schema to a new one (schema migration), and also how to move a database
+entirely from one server to the next (server migration). We will only be
+focusing on the former, **schema migrations**.
 
 A schema migration is also performed when we first define a schema, i.e. to
 create the initial tables and other database structures. Thankfully, we can use
@@ -213,7 +213,7 @@ Type the following command to create a migration environment:
 flask db init
 ```
 
-The `server` directory should contain two new directories `instance` and
+The `server` directory should now contain two new directories `instance` and
 `migrations`:
 
 ```text
@@ -247,17 +247,23 @@ The `migrations` folder contains a migration environment:
   defines the basic structure of a migration.
 - `versions` is a directory to hold migration scripts.
 
-Next, type the following command to generate an initial migration:
+Next we will use the command `flask db migrate -m message` to generate a
+migration script in the `migrations/versions` directory. The `-m message` is an
+optional flag that lets us add a message describing the migration.
+
+Type the following command to generate an initial migration:
 
 ```console
 flask db migrate -m "Initial migration."
 ```
 
-The command results in two new files:
+. The command results in two new files:
 
 - The database `app.db` is added to the `instance` directory.
-- A Python migration script `###_initial_migration.py` is added to the
-  `versions` directory (### varies each time the migrate command is executed).
+- A Python migration script of the form `###_message.py` is added to the
+  `migrations/versions` directory.
+  - `###` is a random version number.
+  - `message` is the text specified with the `-m` flag.
 
 ```text
 ├── CONTRIBUTING.md
@@ -276,14 +282,14 @@ The command results in two new files:
     │   ├── env.py
     │   ├── script.py.mako
     │   └── versions
-    │       └── ###_initial_migration.py
+    │       └── ###_message.py
     └── models.py
 ```
 
 Open the migration script in the editor. You'll see it contains functions
-`upgrade()` and `downgrade()`, which respectively create and drop the `pets`
-table. The `upgrade()` function is generated using the schema details defined by
-the `Pet` model class.
+`upgrade()` and `downgrade()` that create and drop the `pets` table. The
+`upgrade()` function is generated using the schema details defined by the `Pet`
+model class.
 
 Finally, type the following to run the `upgrade()` function and create the
 `pets` table:
@@ -292,7 +298,7 @@ Finally, type the following to run the `upgrade()` function and create the
 flask db upgrade head
 ```
 
-The flag `head` is optional and refers to the most recent migration.
+The `head` is optional and refers to the most recent migration version.
 
 Open the database file `app.db` using a VS Code extension such as
 `SQLITE EXPLORER` or `SQLite Viewer`. You should see a new table named `pets`
@@ -333,10 +339,10 @@ several Flask-Migrate commands to create the initial version of our database:
   <code>flask db migrate</code>
   </td>
   <td>
-  Autogenerates a new migration script in <code>migrations</code> folder.
+  Autogenerates a new migration script in the <code>migrations</code> folder.
   </td>
   <td>
-  Run each time you create or update classes in <code>models.py</code>.
+  Run each time a model class is added/updated in <code>models.py</code>.
   </td>
 </tr>
 
@@ -345,10 +351,10 @@ several Flask-Migrate commands to create the initial version of our database:
   <code>flask db upgrade head</code>
   </td>
   <td>
-  Runs the <code>upgrade</code> function in the migration script to create/update the database schema.
+  Runs the <code>upgrade</code> function to update the database schema.
   </td>
   <td>
-  Run after creating a migration.
+  Run after creating a new migration script.
 </tr>
 
 </table>
