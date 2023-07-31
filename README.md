@@ -185,6 +185,14 @@ Eventually we will add routes to `app.py` to implement CRUD operations on the
 `pets` table. First, we need to step through the process of creating the
 database file `app.db` and adding the `pets` table to the database.
 
+Let's configure the `FLASK_APP` and `FLASK_RUN_PORT` environment variables
+before proceeding with the database migration:
+
+```console
+export FLASK_APP=app.py
+export FLASK_RUN_PORT=5555
+```
+
 ### Schema migration with Flask-Migrate
 
 We know how to write SQL statements to define and modify a database schema. For
@@ -301,10 +309,14 @@ flask db upgrade head
 The `head` is optional and refers to the most recent migration version.
 
 Open the database file `app.db` using a VS Code extension such as
-`SQLITE EXPLORER` or `SQLite Viewer`. You should see a new table named `pets`
-with columns as defined by the `Pet` model class:
+`SQLITE EXPLORER` or `SQLite Viewer`.
 
-![new pet table](https://curriculum-content.s3.amazonaws.com/7159/python-p4-v2-flask-sqlalchemy/new_pet_table.png)
+The image below shows the database schema using the `SQLite Viewer` extension.
+Right-click on `app.db`, then select `Open With.../SQLite Viewer`. Confirm the
+database contains a new table named `pets` with columns as defined by the `Pet`
+model class.
+
+![new pet table](https://curriculum-content.s3.amazonaws.com/7159/python-p4-v2-flask-sqlalchemy/pet_table.png)
 
 ## Conclusion
 
