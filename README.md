@@ -316,6 +316,42 @@ table named `pets` with columns as defined by the `Pet` model class.
 
 ![new pet table](https://curriculum-content.s3.amazonaws.com/7159/python-p4-v2-flask-sqlalchemy/pet_table.png)
 
+## Column Constraints
+
+The `Pet` model maps to a basic database table with 3 columns (`id`, `name`,
+`species`). There are no column constraints other than the primary key `id`:
+
+```py
+# define a model class by inheriting from db.Model.
+class Pet(db.Model):
+    __tablename__ = 'pets'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    species = db.Column(db.String)
+```
+
+However, SQLAlchemy (and therefore Flask-SQLAlchemy) let's us define many types
+of column constraints. For example, the `User` model below demonstrates some
+common constraints:
+
+```py
+class User(db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True,
+                         nullable=False, index=True)
+    email = db.Column(db.String(120), unique=True)
+    verified = db.Column(db.Boolean, default=False)
+```
+
+- `id` is the primary key
+- `username` is a unique string of length 80. Null values are not allowed. An
+  index is set on the column to speed up queries when searched by this column.
+- `email` is a unique string of length 120. Null values are allowed.
+- `verified` is a boolean that defaults to `False` if a value is not given.
+
 ## Conclusion
 
 **Flask-SQLAlchemy** is a Flask extension that simplifies the task of connecting
