@@ -122,6 +122,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
 # contains definitions of tables and associated schema constructs
+# read more about Metadata using the link at the bottom of the page
 metadata = MetaData()
 
 # create the Flask SQLAlchemy extension
@@ -414,3 +415,4 @@ several Flask-Migrate commands to create the initial version of our database:
 - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/)
 - [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
 - [SQLite Viewer VSCode Extension](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer)
+- [Metadata - SQLAlchemy 2.0 Documentation](https://docs.sqlalchemy.org/en/20/core/metadata.html)
